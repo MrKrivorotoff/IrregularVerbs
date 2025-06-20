@@ -49,21 +49,18 @@ class MainActivity : AppCompatActivity() {
         mPastSimpleText = findViewById(R.id.past_simple)
         mPastParticipleText = findViewById(R.id.past_participle)
 
-        val doMainActionButton = findViewById<Button>(R.id.button_do_main_action)
-        doMainActionButton.setOnClickListener(::onDoMainActionButtonClick)
-        mDoMainActionButton = doMainActionButton
-
-        val openVerbsListButton = findViewById<Button>(R.id.button_open_verbs_list)
-        openVerbsListButton.setOnClickListener(::onOpenVerbsListButtonClick)
-        mOpenVerbsListButton = openVerbsListButton
-
-        val translateButton = findViewById<Button>(R.id.button_translate)
-        translateButton.setOnClickListener(::onTranslateButtonClick)
-        mTranslateButton = translateButton
-
-        val previousVerbButton = findViewById<Button>(R.id.button_previous_verb)
-        previousVerbButton.setOnClickListener(::onPreviousVerbButtonClick)
-        mPreviousVerbButton = previousVerbButton
+        mDoMainActionButton = findViewById<Button>(R.id.button_do_main_action).also {
+            it.setOnClickListener(::onDoMainActionButtonClick)
+        }
+        mOpenVerbsListButton = findViewById<Button>(R.id.button_open_verbs_list).also {
+            it.setOnClickListener(::onOpenVerbsListButtonClick)
+        }
+        mTranslateButton = findViewById<Button>(R.id.button_translate).also {
+            it.setOnClickListener(::onTranslateButtonClick)
+        }
+        mPreviousVerbButton = findViewById<Button>(R.id.button_previous_verb).also {
+            it.setOnClickListener(::onPreviousVerbButtonClick)
+        }
 
         val irregularVerbs = savedInstanceState?.getParcelableArrayList(
             IRREGULAR_VERBS_LIST_KEY,
