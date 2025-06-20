@@ -3,6 +3,7 @@ package com.example.irregularverbs
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -49,19 +50,19 @@ class MainActivity : AppCompatActivity() {
         mPastParticipleText = findViewById(R.id.past_participle)
 
         val doMainActionButton = findViewById<Button>(R.id.button_do_main_action)
-        doMainActionButton.setOnClickListener { onDoMainActionButtonClick() }
+        doMainActionButton.setOnClickListener(::onDoMainActionButtonClick)
         mDoMainActionButton = doMainActionButton
 
         val openVerbsListButton = findViewById<Button>(R.id.button_open_verbs_list)
-        openVerbsListButton.setOnClickListener { onOpenVerbsListButtonClick() }
+        openVerbsListButton.setOnClickListener(::onOpenVerbsListButtonClick)
         mOpenVerbsListButton = openVerbsListButton
 
         val translateButton = findViewById<Button>(R.id.button_translate)
-        translateButton.setOnClickListener { onTranslateButtonClick() }
+        translateButton.setOnClickListener(::onTranslateButtonClick)
         mTranslateButton = translateButton
 
         val previousVerbButton = findViewById<Button>(R.id.button_previous_verb)
-        previousVerbButton.setOnClickListener { onPreviousVerbButtonClick() }
+        previousVerbButton.setOnClickListener(::onPreviousVerbButtonClick)
         mPreviousVerbButton = previousVerbButton
 
         val irregularVerbs = savedInstanceState?.getParcelableArrayList(
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         updatePreviousVerbButton()
     }
 
-    private fun onDoMainActionButtonClick() {
+    private fun onDoMainActionButtonClick(v: View) {
         if (isActionSelectNext()) {
             selectNextVerbAndReturnPrevious()
                 ?.storeAsPrevious()
@@ -157,7 +158,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onOpenVerbsListButtonClick() {
+    private fun onOpenVerbsListButtonClick(v: View) {
         val intent = Intent(this, VerbsListActivity::class.java)
         intent.putParcelableArrayListExtra("IrregularVerbsList", mIrregularVerbs)
         startActivity(intent)
@@ -167,7 +168,7 @@ class MainActivity : AppCompatActivity() {
         .firstOrNull { it.name == name }
         ?.let { it.getInt(it) }
 
-    private fun onTranslateButtonClick() {
+    private fun onTranslateButtonClick(v: View) {
         val verb = mCurrentVerb?.infinitive
         if (verb != null) {
             val stringResId = getStringResIdByName("verb_$verb")
@@ -189,7 +190,7 @@ class MainActivity : AppCompatActivity() {
     private fun Context.getCurrentLocale(): Locale? =
         resources.configuration.getLocales().get(0)
 
-    private fun onPreviousVerbButtonClick() {
+    private fun onPreviousVerbButtonClick(v: View) {
         mCurrentVerb = mPreviousVerbs.removeLast()
         mHasPastRevealed = false
         updateVerbTensesText()
