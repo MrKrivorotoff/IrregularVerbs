@@ -98,14 +98,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun isActionSelectNext() = mCurrentVerb == null || mHasPastRevealed
 
-    private fun selectNextVerbAndReturnPrevious(): IrregularVerb? {
-        val currentVerb = mCurrentVerb
+    private fun selectNextVerbAndReturnPrevious(): IrregularVerb? = mCurrentVerb.also { currentVerb ->
         val irregularVerbs = if (currentVerb == null)
             mIrregularVerbs
         else
             mIrregularVerbs.copyAllExceptIndex(currentVerb.index)
         mCurrentVerb = irregularVerbs.random()
-        return currentVerb
     }
 
     private fun IrregularVerb.storeAsPrevious() {
