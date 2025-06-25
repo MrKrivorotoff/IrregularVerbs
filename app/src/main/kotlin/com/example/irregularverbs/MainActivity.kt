@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onDoMainActionButtonClick(v: View) {
         if (isActionSelectNext()) {
-            selectNextVerbAndReturnPrevious()
+            selectNextVerbAndReturnPrev()
                 ?.storeAsPrevious()
             mHasPastRevealed = false
         } else {
@@ -98,12 +98,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun isActionSelectNext() = mCurrentVerb == null || mHasPastRevealed
 
-    private fun selectNextVerbAndReturnPrevious(): IrregularVerb? = mCurrentVerb.also { currentVerb ->
-        val irregularVerbs = if (currentVerb == null)
+    private fun selectNextVerbAndReturnPrev(): IrregularVerb? = mCurrentVerb.also { currentVerb ->
+        val verbsToSelect = if (currentVerb == null)
             mIrregularVerbs
         else
             mIrregularVerbs.copyAllExceptIndex(currentVerb.index)
-        mCurrentVerb = irregularVerbs.random()
+        mCurrentVerb = verbsToSelect.random()
     }
 
     private fun IrregularVerb.storeAsPrevious() {
